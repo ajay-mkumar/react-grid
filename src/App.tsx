@@ -2,8 +2,8 @@ import Grid from "./grid/components/Grid";
 import type { Column, RowData } from "./grid/types/grid.types";
 
 const columns: Column[] = [
-  { field: "id", headerName: "ID" },
-  { field: "name", headerName: "Name" },
+  { field: "id", headerName: "ID", filterable: true },
+  { field: "name", headerName: "Name", filterable: true },
   { field: "role", headerName: "Role" },
 ];
 

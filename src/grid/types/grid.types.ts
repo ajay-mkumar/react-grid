@@ -1,7 +1,8 @@
 export type Column = {
     field: string,
     headerName: string,
-    sortable?: boolean
+    sortable?: boolean,
+    filterable?: boolean,
 }
 
 export type RowData = {

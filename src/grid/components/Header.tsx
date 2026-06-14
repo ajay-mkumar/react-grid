@@ -5,21 +5,43 @@ type HeaderProps = {
   sortField: string | null;
   sortDirection: "asc" | "dsc";
   onSort: (field: string) => void;
+  filters: Record<string, string>;
+  onFilterChange: (field: string, value: string) => void;
 };
 
-function Header({ columns, sortDirection, sortField, onSort }: HeaderProps) {
+function Header({
+  columns,
+  sortDirection,
+  sortField,
+  onSort,
+  filters,
+  onFilterChange,
+}: HeaderProps) {
   return (
     <div className="grid-header">
       {columns.map((column) => (
         <div
           key={column.field}
-          onClick={() => onSort(column.field)}
+          onClick={() => {
+            if (column.sortable) onSort(column.field);
+          }}
           className="grid-cell"
         >
-          {column.headerName}
+          <div>
+            {column.headerName}
 
-          {sortField === column.field &&
-            (sortDirection === "asc" ? " ↑" : " ↓")}
+            {column.sortable &&
+              sortField === column.field &&
+              (sortDirection === "asc" ? " ↑" : " ↓")}
+          </div>
+          {column.filterable && (
+            <input
+              type="text"
+              onClick={(e) => e.stopPropagation()}
+              value={filters[column.field] || ""}
+              onChange={(e) => onFilterChange(column.field, e.target.value)}
+            />
+          )}
         </div>
       ))}
     </div>
