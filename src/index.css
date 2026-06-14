@@ -31,3 +31,6 @@
   background-color: #fafafa;
   cursor: pointer;
 }
+.grid-row.selected {
+  background-color: #e6f4ff;
+}
