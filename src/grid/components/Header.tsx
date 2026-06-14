@@ -7,6 +7,8 @@ type HeaderProps = {
   onSort: (field: string) => void;
   filters: Record<string, string>;
   onFilterChange: (field: string, value: string) => void;
+  gridTemplateColumns: string;
+  startResize: (e: React.MouseEvent, field: string) => void;
 };
 
 function Header({
@@ -16,9 +18,11 @@ function Header({
   onSort,
   filters,
   onFilterChange,
+  gridTemplateColumns,
+  startResize,
 }: HeaderProps) {
   return (
-    <div className="grid-header">
+    <div className="grid-header" style={{ gridTemplateColumns }}>
       {columns.map((column) => (
         <div
           key={column.field}
@@ -27,12 +31,22 @@ function Header({
           }}
           className="grid-cell"
         >
-          <div>
-            {column.headerName}
+          <div className="header-cell">
+            <span>
+              {column.headerName}
 
-            {column.sortable &&
-              sortField === column.field &&
-              (sortDirection === "asc" ? " ↑" : " ↓")}
+              {column.sortable &&
+                sortField === column.field &&
+                (sortDirection === "asc" ? " ↑" : " ↓")}
+            </span>
+
+            <div
+              className="resize-handle"
+              onMouseDown={(e) => {
+                e.stopPropagation();
+                startResize(e, column.field);
+              }}
+            />
           </div>
           {column.filterable && (
             <input

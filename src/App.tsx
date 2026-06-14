@@ -1,10 +1,10 @@
 import Grid from "./grid/components/Grid";
-import type { Column, RowData } from "./grid/types/grid.types";
+import type { Column, GridOptions, RowData } from "./grid/types/grid.types";
 
 const columns: Column[] = [
-  { field: "id", headerName: "ID", filterable: true },
-  { field: "name", headerName: "Name", filterable: true },
-  { field: "role", headerName: "Role" },
+  { field: "id", headerName: "ID", width: "2fr" },
+  { field: "name", headerName: "Name", width: "3fr" },
+  { field: "role", headerName: "Role", width: "1fr" },
 ];
 
 const rows: RowData[] = [
@@ -13,8 +13,12 @@ const rows: RowData[] = [
   { id: 3, name: "Tara", role: "QA Engineer" },
 ];
 
+const gridOptions: GridOptions = {
+  backgroundColor: ''
+}
+
 function App() {
-  return <Grid columns={columns} rows={rows} />;
+  return <Grid columns={columns} rows={rows} gridOptions={gridOptions} />;
 }
 
 export default App;
